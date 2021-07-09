@@ -95,7 +95,7 @@ const EditPost = (props) => {
         });
         if (response.data) {
           dispatch({ type: "fetchComplete", value: response.data });
-          if (appState.user.username != response.data.author.username) {
+          if (appState.user.username !== response.data.author.username) {
             appDispatch({
               type: "flashMessages",
               value: "You do not have permission to edit that post.",
@@ -113,7 +113,14 @@ const EditPost = (props) => {
     return () => {
       ourRequest.cancel();
     };
-  }, [state.id]);
+  }, [
+    state.id,
+    appDispatch,
+    appState.user.username,
+    dispatch.apply,
+    props.history,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (state.sendCount) {
@@ -143,7 +150,15 @@ const EditPost = (props) => {
         ourRequest.cancel();
       };
     }
-  }, [state.sendCount]);
+  }, [
+    state.sendCount,
+    appDispatch,
+    appState.user.token,
+    dispatch,
+    state.body.value,
+    state.id,
+    state.title.value,
+  ]);
 
   if (state.notFound) {
     return <NotFound />;

@@ -54,7 +54,7 @@ const ViewSinglePost = (props) => {
 
   function isOwner() {
     if (appState.loggedIn) {
-      return appState.user.username == post.author.username;
+      return appState.user.username === post.author.username;
     }
     return false;
   }
@@ -68,7 +68,7 @@ const ViewSinglePost = (props) => {
         const response = await axios.delete(`/post/${id}`, {
           data: { token: appState.user.token },
         });
-        if (response.data == "Success") {
+        if (response.data === "Success") {
           appDispatch({
             type: "flashMessages",
             value: "Post was successfully deleted.",

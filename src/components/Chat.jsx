@@ -21,7 +21,7 @@ const Chat = () => {
       chatField.current.focus();
       appDispatch({ type: "clearUnreadChatCount" });
     }
-  }, [appState.isChatOpen]);
+  }, [appState.isChatOpen, appDispatch]);
 
   useEffect(() => {
     socket.current = io("https://reactcomplexapp-api.herokuapp.com/");
@@ -31,14 +31,14 @@ const Chat = () => {
       });
     });
     return () => socket.current.disconnect();
-  }, []);
+  }, [setState]);
 
   useEffect(() => {
     chatLog.current.scrollTop = chatLog.current.scrollHeight;
     if (state.chatMessages.length && !appState.isChatOpen) {
       appDispatch({ type: "incrementUnreadChatCount" });
     }
-  }, [state.chatMessages]);
+  }, [state.chatMessages, appDispatch, appState.isChatOpen]);
 
   function handleFieldChange(e) {
     const value = e.target.value;

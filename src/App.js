@@ -121,7 +121,7 @@ const App = () => {
         ourRequest.cancel();
       };
     }
-  }, []);
+  }, [dispatch, state.loggedIn, state.user.token]);
 
   return (
     <StateContext.Provider value={state}>

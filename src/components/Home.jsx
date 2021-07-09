@@ -36,7 +36,7 @@ const Home = () => {
     return () => {
       ourRequest.cancel();
     };
-  }, []);
+  }, [appState.user.token, setState]);
 
   if (state.isLoading) {
     return <LoadingDotsIcon />;
